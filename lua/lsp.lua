@@ -1,4 +1,17 @@
 -------------------------------------------------------
+--- Auto-show diagnostics on CursorHold
+-------------------------------------------------------
+vim.opt.updatetime = 000
+
+vim.diagnostic.config({ virtual_text = false })
+
+vim.api.nvim_create_autocmd("CursorHold", {
+    callback = function()
+        vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
+    end,
+})
+
+-------------------------------------------------------
 --- Float styling (applies to hover and all other floats)
 -------------------------------------------------------
 vim.api.nvim_set_hl(0, "NormalFloat",              { fg = "#E6E1FF", bg = "#0D0825" })
