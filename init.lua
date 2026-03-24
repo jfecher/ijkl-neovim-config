@@ -219,7 +219,7 @@ local telescope = require('telescope.builtin')
 
 wk.setup({
     win = { height = { max = 20 } },
-    layout = { width = { max = 60 } },
+    layout = { width = { min = 20, max = 40 } },
 })
 wk.add({
     -- Telescope / Search
@@ -241,9 +241,8 @@ wk.add({
     { "<leader>gr", "<cmd>Gread<CR>",          desc = "Restore file" },
 
     -- LSP
-    { "gr",         group = "More Lsp Actions" },
-    { "gf",         vim.lsp.buf.format,        desc = "Format file" },
-    { "ga",         vim.lsp.buf.code_action,   desc = "Code actions" },
+    { "gf",         vim.lsp.buf.format,           desc = "Format file" },
+    { "ga",         vim.lsp.buf.code_action,      desc = "Code actions" },
     {
         "<C-a>",
         function()
@@ -255,11 +254,12 @@ wk.add({
     },
     { "[g",          function() vim.diagnostic.jump({ count = -1 }) end, desc = "Previous diagnostic" },
     { "]g",          function() vim.diagnostic.jump({ count = 1 }) end,  desc = "Next diagnostic" },
-    { "gd",          vim.lsp.buf.definition,                             desc = "Go to definition" },
-    { "grn",         desc = "Rename symbol" },
-    { "grr",         desc = "Show references" },
-    { "gri",         desc = "Show implementations" },
-    { "grd",         desc = "Go to declaration" },
+    { "gd",          vim.lsp.buf.definition,      desc = "Go to definition" },
+    { "gr",          vim.lsp.buf.references,      desc = "References" },
+    { "gn",          vim.lsp.buf.rename,          desc = "Rename symbol" },
+    { "gi",          vim.lsp.buf.implementation,  desc = "Implementations" },
+    { "gt",          vim.lsp.buf.type_definition, desc = "Type definition" },
+    { "gs",          vim.lsp.buf.declaration,     desc = "Declaration" },
 
     -- Diagnostics (trouble.nvim)
     { "<leader>d",   group = "diagnostics" },
@@ -275,6 +275,10 @@ wk.add({
     { "<leader>ghs", "<cmd>Gitsigns stage_hunk<CR>",                     desc = "Stage hunk" },
     { "<leader>ghr", "<cmd>Gitsigns reset_hunk<CR>",                     desc = "Reset hunk" },
     { "<leader>ghb", "<cmd>Gitsigns blame_line<CR>",                     desc = "Blame line" },
+
+    -- Buffers
+    { "<Tab>",       "<cmd>bnext<CR>",   desc = "Next buffer" },
+    { "<S-Tab>",     "<cmd>bprev<CR>",   desc = "Previous buffer" },
 
     -- Misc
     { "t",           desc = "Open terminal" },
