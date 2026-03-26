@@ -53,7 +53,14 @@ require("lazy").setup({
                 preview_opts = { border = "rounded" },
                 title = true,
             })
-            vim.keymap.set("n", "K", require("hover").hover, { desc = "Hover" })
+            vim.keymap.set("n", "K", function()
+                for _, win in ipairs(vim.api.nvim_list_wins()) do
+                    if vim.api.nvim_win_get_config(win).relative ~= "" then
+                        vim.api.nvim_win_close(win, false)
+                    end
+                end
+                require("hover").hover()
+            end, { desc = "Hover" })
         end,
     },
 
@@ -109,7 +116,19 @@ require("lazy").setup({
     },
 
     -- Git
-    "tpope/vim-fugitive",
+    {
+        "tpope/vim-fugitive",
+        config = function()
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = { "fugitive", "git" },
+                callback = function(ev)
+                    vim.keymap.set("n", "i", "k", { buffer = ev.buf, silent = true })
+                    vim.keymap.set("n", "k", "j", { buffer = ev.buf, silent = true })
+                    vim.keymap.set("n", "j", "h", { buffer = ev.buf, silent = true })
+                end,
+            })
+        end,
+    },
     { "lewis6991/gitsigns.nvim",         config = true },
 
     -- Other
@@ -197,6 +216,11 @@ end, { desc = "Smart close", silent = true })
 vim.keymap.set("n", "<Leader>a", ':echo "hey there"<CR>')
 
 ---------- Options ----------
+vim.opt.expandtab = true
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
+vim.opt.scrolloff = 8
 vim.opt.wrap = false
 vim.opt.number = true
 vim.opt.ignorecase = true
