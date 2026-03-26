@@ -47,9 +47,7 @@ require("lazy").setup({
         "lewis6991/hover.nvim",
         config = function()
             require("hover").setup({
-                init = function()
-                    require("hover.providers.lsp")
-                end,
+                providers = { 'hover.providers.lsp' },
                 preview_opts = { border = "rounded" },
                 title = true,
             })
