@@ -38,7 +38,7 @@ require("lazy").setup({
             vim.g.airline_theme = "sunset"
         end,
     },
-    "vim-airline/vim-airline-themes",
+    -- "vim-airline/vim-airline-themes",
     "folke/which-key.nvim",
     { "norcalli/nvim-colorizer.lua", config = function() require("colorizer").setup() end },
     { "ray-x/lsp_signature.nvim",    config = true },
@@ -293,10 +293,14 @@ wk.add({
 
     -- Git hunks (gitsigns)
     { "<leader>gh",  group = "hunks" },
-    { "<leader>ghp", "<cmd>Gitsigns preview_hunk<CR>",                   desc = "Preview hunk" },
-    { "<leader>ghs", "<cmd>Gitsigns stage_hunk<CR>",                     desc = "Stage hunk" },
-    { "<leader>ghr", "<cmd>Gitsigns reset_hunk<CR>",                     desc = "Reset hunk" },
-    { "<leader>ghb", "<cmd>Gitsigns blame_line<CR>",                     desc = "Blame line" },
+    { "<leader>ghp", "<cmd>Gitsigns preview_hunk<CR>", desc = "Preview hunk" },
+    { "<leader>ghs", "<cmd>Gitsigns stage_hunk<CR>",   desc = "Stage hunk" },
+    { "<leader>ghr", "<cmd>Gitsigns reset_hunk<CR>",   desc = "Reset hunk" },
+    { "<leader>ghb", "<cmd>Gitsigns blame_line<CR>",   desc = "Blame line" },
+    { "[h",          "<cmd>Gitsigns prev_hunk<CR>",    desc = "Previous hunk" },
+    { "]h",          "<cmd>Gitsigns next_hunk<CR>",    desc = "Next hunk" },
+    { "<leader>ghN", "<cmd>Gitsigns prev_hunk<CR>",    desc = "Previous hunk" },
+    { "<leader>ghn", "<cmd>Gitsigns next_hunk<CR>",    desc = "Next hunk" },
 
     -- Buffers
     { "<Tab>",       "<cmd>bnext<CR>",   desc = "Next buffer" },
