@@ -3,7 +3,7 @@
 -------------------------------------------------------
 vim.opt.updatetime = 000
 
-vim.diagnostic.config({ virtual_text = false })
+vim.diagnostic.config({ virtual_text = false, update_in_insert = true })
 
 vim.api.nvim_create_autocmd("CursorHold", {
     callback = function()
