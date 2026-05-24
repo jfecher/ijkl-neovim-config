@@ -95,6 +95,9 @@ require("lazy").setup({
         version = "1.*",
         opts = {
             keymap = { ["<CR>"] = { "accept", "fallback" } },
+            completion = {
+                documentation = { auto_show = true, auto_show_delay_ms = 0 }
+            }
         }
     },
     "neovim/nvim-lspconfig",
@@ -223,6 +226,8 @@ vim.opt.wrap = false
 vim.opt.number = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+
+vim.opt.clipboard = 'unnamedplus'
 
 -- No extra files
 vim.opt.backup = false
