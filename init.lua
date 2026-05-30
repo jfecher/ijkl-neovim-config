@@ -202,14 +202,24 @@ vim.keymap.set("n", "t", ":terminal<CR>i", { silent = true })
 
 -- Smart close
 vim.keymap.set("n", "Q", function()
-    local bt = vim.bo.buftype
-    if bt == "nofile" or bt == "help" or bt == "quickfix" or bt == "prompt" then
-        vim.cmd("close")
-    elseif #vim.api.nvim_tabpage_list_wins(0) > 1 then
+    -- Count only ordinary (non-floating) windows: floats from completion docs,
+    -- signature help, hover, dropbar, etc. would otherwise inflate the count and
+    -- send us to `:close` on the last real window, raising E444.
+    local ordinary_wins = 0
+    for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+        if vim.api.nvim_win_get_config(win).relative == "" then
+            ordinary_wins = ordinary_wins + 1
+        end
+    end
+
+    if ordinary_wins > 1 then
+        -- More than one window in this tab: close just this window.
         vim.cmd("close")
     elseif #vim.api.nvim_list_tabpages() > 1 then
+        -- Last window of a non-last tab: close the tab.
         vim.cmd("tabclose")
     else
+        -- Last window of the last tab: delete the buffer (avoids E444).
         vim.cmd("bdelete")
     end
 end, { desc = "Smart close", silent = true })
