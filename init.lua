@@ -183,7 +183,8 @@ vim.keymap.set("n", "<C-k>", "<C-w>j", { silent = true })
 vim.keymap.set("n", "<C-l>", "<C-w>l", { silent = true })
 
 vim.keymap.set("i", "<C-j>", "<Esc><C-w>h", { silent = true })
-vim.keymap.set("i", "<C-i>", "<Esc><C-w>k", { silent = true })
+-- <C-i> is indistinguishable from <Tab> in a terminal, so mapping it in insert
+-- mode would hijack the Tab key
 vim.keymap.set("i", "<C-k>", "<Esc><C-w>j", { silent = true })
 vim.keymap.set("i", "<C-l>", "<Esc><C-w>l", { silent = true })
 
